@@ -1,0 +1,90 @@
+//***************filter to read from standard in and prints to standard out***************
+
+import re
+import sys
+
+# matches 5 digit zip codes, and also 5+4 codes
+r = re.compile('\d{5}(-\d{4})?')
+
+for i in sys.stdin:
+   if r.search(i):
+      print i
+
+
+//***************Example Parser***************
+
+#!/usr/bin/python
+
+import re
+import copy
+import pp     #Parallel Python, see http://www.parallelpython.com
+
+def logparse(self_string):
+    self_regexp = copy.copy(regexp) #Wasn't sure if having a common regexp object between
+    counter = 0                     #the two threads would slow things down, so I played it safe
+    found = self_regexp.finditer(self_string)  ##Here's where the big regexp ruins my life...
+    
+    ## Here I had to parse for newline characters to determine line numbers, lame :(
+    newlinelist = re.finditer("\n", self_string)
+    newlineloc = []
+    for item in newlinelist:
+        newlineloc.append(item.end())
+
+    ## Binary search the list of indicies of newline characters and compare to the indicies
+    ## of matches, all so we can get the line numbers... I feel like there's a better way to do this
+    currentmatch = found.next()
+    startloc = currentmatch.start()
+    spread = [0, len(newlineloc)]    
+    while 0<1: # Lol. is there a "while true" equivalent in python?
+        middle = ((spread[1] - spread[0]) / 2) + spread[0]
+        if startloc >= newlineloc[middle]:
+            if startloc < newlineloc[middle+1]:
+                print "Found occurrence of \'" + currentmatch.group() + "\' at line ", str(middle+2)
+                try:
+                    currentmatch = found.next()
+                except StopIteration:
+                     break
+                spread = [middle, len(newlineloc)]
+                startloc = currentmatch.start()
+            else:
+                spread = [middle, spread[1]]
+        else:
+            spread = [0, middle] 
+
+#----------------------Loading the config file--------------------------#
+## Because this is really just a work in progress, there isn't a fancy way
+## to define terms that constitute a suspicious entry. A logfile has to contain
+## entriers of the form 'PATTERN: pattern_here' . Each pattern is built into 
+## an obscenely poorly formed regexp to be used to parse the logfile
+
+config = open('#-----config file location here-----#', 'r')
+config_lines = config.readlines()
+config_list = []
+for item in config_lines:
+    if '#' in item or len(item) < 2:
+        continue
+    if "PATTERN:" in item:
+        temp = item.split("\"")
+        config_list.append(temp[1])
+config.close()
+
+expression = ""
+for item in config_list:
+    expression += (item + "|")
+expression = expression[0:-1]     #There's an extra trailing '|' ...
+regexp = re.compile(expression) 
+
+file = open('./maillog.1', 'r').read()
+job_server = pp.Server(2)
+
+#----------------------Parsing the log file----------------------------#
+## Halve the string so parsing can happen simultaneously
+
+string1 = file[0:(len(file)/2)+1]
+string2 = file[(len(file)/2)+2:]
+
+try:
+    job_server.submit(logparse(string1))
+    job_server.submit(logparse(string2))
+except TypeError:
+    print ""
