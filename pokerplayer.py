@@ -7,8 +7,8 @@ class PokerPlayer(Player):
 
     def __init__(self, name, buyIn):
         self.setName(name)
-        hand = PlayerHand()
-        stack = PlayerStack(buyIn)
+        self.hand = PlayerHand()
+        self.stack = PlayerStack(buyIn)
         self.setStatus(True)
         
     def setStatus(self, inHand):
