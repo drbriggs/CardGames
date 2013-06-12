@@ -29,18 +29,18 @@ class PlayerHand():
 
     def pokerSort(self, firstCard, secondCard): 
         #return Neg if 1st arg is smaller, 0 if equatl, and positive if 1st arg is larger
-        firstCardSuite = firstCard.cardSuiteRank()
+        firstCardSuit = firstCard.cardSuitRank()
         firstCardValue = firstCard.cardValueRank()
-        secondCardSuite = secondCard.cardSuiteRank()
+        secondCardSuit = secondCard.cardSuitRank()
         secondCardValue = secondCard.cardValueRank()
         if firstCardValue > secondCardValue:
             return 1
         elif firstCardValue < secondCardValue:
             return -1
         else:
-            if firstCardSuite > secondCardSuite:
+            if firstCardSuit > secondCardSuit:
                 return 1
-            elif firstCardSuite < secondCardSuite:
+            elif firstCardSuit < secondCardSuit:
                 return -1
             else:
                 return 0
