@@ -32,15 +32,15 @@ class PlayerHand():
 
     def showHand(self):
         for i in range(len(self.__wholeHand__)):
-            print self.__wholeHand__(i)
+            print self.__wholeHand__[i]
 
     def seeUpCards(self):
         for i in range(len(self.__upCards__)):
-            print self.__upCards__(i)
+            print self.__upCards__[i]
             
     def seeDownCards(self):
         for i in range(len(self.__upCards__)):
-            print self.__upCards__(i)
+            print self.__upCards__[i]
         
     
         
