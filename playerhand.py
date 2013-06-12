@@ -13,12 +13,12 @@ class PlayerHand():
     #    self.__cardStorage__.extend(PokerCard)
 
     def addUpCard(self, pokerCard):
-        self.__upCards__.extend(pokerCard)
-        self.__wholeHand__.extend(pokerCard)
+        self.__upCards__.append(pokerCard)
+        self.__wholeHand__.append(pokerCard)
         
     def addDownCard(self, pokerCard):
-        self.__downCards__.extend(pokerCard)
-        self.__wholeHand__.extend(pokerCard)
+        self.__downCards__.append(pokerCard)
+        self.__wholeHand__.append(pokerCard)
 
     def addCard(self, pokerCard):
         self.addDownCard(pokerCard)
