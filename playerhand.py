@@ -27,8 +27,26 @@ class PlayerHand():
         for i in range(len(self.__wholeHand__)):
             self.__wholeHand__.remove()
 
+    def pokerSort(self, firstCard, secondCard): 
+        #return Neg if 1st arg is smaller, 0 if equatl, and positive if 1st arg is larger
+        firstCardSuite = firstCard.cardSuiteRank()
+        firstCardValue = firstCard.cardValueRank()
+        secondCardSuite = secondCard.cardSuiteRank()
+        secondCardValue = secondCard.cardValueRank()
+        if firstCardValue > secondCardValue:
+            return 1
+        elif firstCardValue < secondCardValue:
+            return -1
+        else:
+            if firstCardSuite > secondCardSuite:
+                return 1
+            elif firstCardSuite < secondCardSuite:
+                return -1
+            else:
+                return 0
+        
     def sortHand(self):
-        self.__wholeHand__.sort()
+        self.__wholeHand__.sort(self.pokerSort)
 
     def showHand(self):
         for i in range(len(self.__wholeHand__)):
