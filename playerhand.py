@@ -5,9 +5,9 @@ import deck
 class PlayerHand():
     
     def __init__(self):
-        __wholeHand__ = []
-        __upCards__ = []
-        __downCards__ = []
+        self.__wholeHand__ = []
+        self.__upCards__ = []
+        self.__downCards__ = []
         
     #def addCard(self, PokerCard):
     #    self.__cardStorage__.extend(PokerCard)
