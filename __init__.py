@@ -1,5 +1,7 @@
 from deck import Deck
 from wargameengine import *
+import collections
+import random
 
 #What all needs to be imported here?
 #Can we just do top level and each file will still run its own imports?
