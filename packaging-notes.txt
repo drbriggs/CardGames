@@ -1,0 +1,7 @@
+Packaging notes:
+
+Naming:
+1. All lower case name
+2. Unique to pypi
+3. Separate words with an underscore or no separator.
+
