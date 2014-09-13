@@ -10,4 +10,4 @@ class PokerDeck(Deck):
         for v in PokerCard.validValues:
             for s in PokerCard.validSuits:
                 self.addCard(PokerCard(v, s))
-        print 'Deck initialized with 52 cards'
+        print 'Deck initialized with ' + str(self.remainingCards()) + ' cards'
