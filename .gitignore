@@ -1,0 +1,2 @@
+#don't include the .pyc files into the repo
+*.pyc
